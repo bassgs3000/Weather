@@ -1,0 +1,6 @@
+- content_for :title, "Weather Homepage"
+
+%ul.small-block-grid-4
+  - four_day_forecast.each do |day|
+    %li
+      %h3= day["date"]["weekday"]
