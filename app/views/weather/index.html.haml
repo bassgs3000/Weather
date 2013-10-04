@@ -1,6 +1,25 @@
 - content_for :title, "Weather Homepage"
 
-%ul.small-block-grid-4
+%h5= link_to get_city(wunderground_link), wunderground_link
+%ul.large-block-grid-4
   - four_day_forecast.each do |day|
     %li
-      %h3= day["date"]["weekday"]
+      %ul.pricing-table
+        %li.title= day["date"]["weekday"]
+        %li.bullet-item= "#{day["date"]["month"]}/#{day["date"]["day"]}/#{day["date"]["year"]}"
+        %li.bullet-item
+          High:
+          = day["high"]["fahrenheit"]+176.chr(Encoding::UTF_8)+"F"
+        %li.bullet-item
+          Low: 
+          = day["low"]["fahrenheit"]+176.chr(Encoding::UTF_8)+"F"
+        %li.bullet-item
+          Conditions:
+          = day["conditions"]
+          = image_tag day["icon_url"]
+        %li.bullet-item
+          Chance of Rain:
+          = "#{day["pop"]}%"
+          .progress{ "data-value" => "#{day["pop"]}%"}
+            / %span.meter{ style: "width: #{day["pop"]}%"}
+
