@@ -2,11 +2,18 @@ module WeatherHelper
   api_key = ""
   $base_url = "http://api.wunderground.com/api/#{api_key}"
 
-  # def generate_forecast_url
-  #   response = call_and_parse("geolookup")
-  #   responseurl = response["location"]["requesturl"].gsub("html","json")
-  #   return "#{$base_url}/forecast/q/" + responseurl
-  # end
+  def wunderground_link
+    response = call_and_parse("geolookup")
+    responseurl = response["location"]["requesturl"]
+    return "http://www.wunderground.com/#{responseurl}"
+  end
+
+  def get_city(wunder_link)
+    city = wunder_link.split('/').last
+    city.gsub!(".html","")
+    return city
+    
+  end
 
   def four_day_forecast
     response = call_and_parse("forecast")
